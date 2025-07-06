@@ -1,79 +1,67 @@
-# Smart Irrigation System with AI Rain Prediction and Firebase Integration
+# 🏠 Home Automation System using Arduino and IoT
 
-This project implements a smart irrigation system using Arduino and ESP32. It utilizes AI-based rain prediction and Firebase Cloud to manage water resources efficiently, control a smart ceiling, and optimize irrigation based on real-time sensor data.
+This project implements a basic **Home Automation System** using Arduino. It enables users to control home appliances (like lights, fans, etc.) remotely via IoT technologies.
 
 ## 🔧 Features
 
-- 🌧️ **AI Rain Prediction**: Receives AI-predicted rain data via Firebase.
-- 🌱 **Soil Moisture Monitoring**: Monitors soil moisture using multiple sensors.
-- 📡 **ESP32 to Arduino I2C Communication**: ESP32 sends rain prediction and sensor data to Arduino.
-- ☁️ **Firebase Integration**: ESP32 reads from and writes to Firebase Realtime Database.
-- 🚿 **Smart Irrigation Logic**:
-  - If **rain is predicted** and **soil is moist** → Close ceiling.
-  - If **rain is predicted** and **soil is dry** → Open ceiling.
-  - If **no rain is predicted** and **soil is dry** → Activate water pump.
-  - If **no rain is predicted** and **soil is moist** → Do nothing.
-- 🌦️ **Fallback to Real Rain Sensor** in case of AI misprediction.
-- 🛠️ **Motor Control** using L298N Driver for opening/closing smart ceiling.
+- 💡 Control appliances via input commands (e.g., from serial or future IoT integrations)
+- 📶 Easily extendable for Wi-Fi, Bluetooth, or Firebase integration
+- 🔌 Relay-based switching for safe appliance control
+- 🕹️ Simple command interface for testing and development
 
-## ⚙️ Hardware Components
+## 📁 Project File
 
-- ESP32 Dev Module
-- Arduino Uno
-- 3 Soil Moisture Sensors
-- Rain Sensor
-- BMP180 Temperature Sensor
-- L298N Motor Driver
-- 2 DC Motors (for opening/closing smart ceiling)
-- Water Pump
-- Firebase Realtime Database
+- `Home Automation Project.ino`: The main Arduino sketch that controls multiple devices connected via digital pins.
 
-## 🔌 Wiring Overview
+## 🛠️ Hardware Requirements
 
-- ESP32 (I2C):
-  - SDA: GPIO 21 (to Arduino)
-  - SCL: GPIO 22 (to Arduino)
-  - Secondary I2C (for BMP180): SDA (GPIO 18), SCL (GPIO 19)
-- Arduino:
-  - Reads sensor data and controls motors/pump
-- Motor driver L298N:
-  - IN1, IN2 → Motor A
-  - IN3, IN4 → Motor B
+- Arduino Uno / Nano / Mega
+- 4-Channel Relay Module
+- Home appliances (bulb, fan, etc.)
+- Jumper Wires
+- Power Supply
 
-## 🧠 Logic Flow
+## ⚙️ Pin Configuration
 
-1. ESP32 reads AI rain prediction from Firebase.
-2. Sends prediction and soil moisture data to Arduino via I2C.
-3. Arduino uses logic to:
-   - Open/close ceiling.
-   - Start/stop water pump.
-4. If a mismatch is detected between rain prediction and actual rain sensor → revert to real sensor logic.
+| Appliance       | Arduino Pin |
+|-----------------|-------------|
+| Light           | D2          |
+| Fan             | D3          |
+| TV / Device 1   | D4          |
+| AC / Device 2   | D5          |
 
-## 📁 File Description
+> You can modify these pins as per your hardware setup.
 
-- `Home Automation Project`: Main Arduino sketch handling I2C data reception and controlling actuators based on AI and sensor input.
+## 🚦 How It Works
 
-## 🛠️ Getting Started
+1. Each device is connected to a digital output pin via a relay module.
+2. You send a command (e.g., from Serial Monitor or Bluetooth/WiFi module).
+3. The Arduino receives the command and toggles the relevant relay.
+4. Status can be extended to be monitored via sensors or cloud.
 
-### Prerequisites
+### 🧪 Example Commands (if used with Serial)
 
-- Arduino IDE
-- Firebase Project (with Database rules configured)
-- Required Libraries:
-  - `Wire.h`
-  - `Adafruit_BMP085.h` (or similar for BMP180)
-  - `FirebaseESP32.h` (for ESP32 sketch)
-  
-### Uploading the Code
+L1_ON → Turns Light ON
+L1_OFF → Turns Light OFF
+FAN_ON → Turns Fan ON
+FAN_OFF → Turns Fan OFF
 
-1. Upload the ESP32 code separately to your ESP32 board.
-2. Upload `Home Automation Project` to the Arduino Uno.
-3. Ensure both devices are powered and connected properly via I2C.
+You can expand the command list depending on how many devices are added.
 
-## 📊 Future Improvements
+## 🌐 Extensions
 
-- Integrate a dashboard for real-time monitoring.
-- Add alert notifications for hardware failures.
-- Improve AI model confidence by blending real-time and predicted data.
+This basic setup can be extended with:
+
+- 📱 **ESP8266/ESP32** for Wi-Fi control via mobile apps or web dashboards
+- ☁️ **Firebase** or **MQTT** integration for cloud-based control and status sync
+- 🎙️ **Voice Assistant Integration** (Google Assistant / Alexa)
+- 📊 **Sensor Monitoring** (temperature, motion, light sensors)
+
+## 🧠 Future Plans
+
+- Add mobile app UI for real-time control
+- Integrate scheduling logic
+- Add feedback mechanism (e.g., current sensor for status validation)
+- Improve security via authentication
 
 
