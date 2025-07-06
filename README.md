@@ -76,7 +76,4 @@ This project implements a smart irrigation system using Arduino and ESP32. It ut
 - Add alert notifications for hardware failures.
 - Improve AI model confidence by blending real-time and predicted data.
 
-## 📃 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
